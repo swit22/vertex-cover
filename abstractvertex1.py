@@ -8,6 +8,9 @@ Abstract Min vertex cover setup
 
 from __future__ import division
 from pyomo.environ import *
+from pyomo.opt import SolverFactory
+
+opt = SolverFactory('glpk')
 
 model = AbstractModel()
 
@@ -28,4 +31,6 @@ def ax_constraint_rule(model,i):
     return sum(model.a[i,j]*model.x[j] for j in model.J) >= 1
 model.AxbConstraint = Constraint(model.I, rule = ax_constraint_rule)
 
-
+instance = model.create_instance('vertexdata.dat')
+results = opt.solve(instance)
+instance.display()
