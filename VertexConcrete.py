@@ -37,6 +37,6 @@ model.OBJ = Objective(expr = summation(model.x, model.c, index = model.J))
 def ax_constraint_rule(model,i):
     return summation(A.iloc[i,:],model.x) >= 1
 model.AxbConstraint = Constraint(model.I, rule = ax_constraint_rule)
-print('This has been added to Git")
+
 results = opt.solve(model)
 print(model.display())
